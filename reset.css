@@ -1,0 +1,291 @@
+/* Make resets easy to override */
+/* https://mayank.co/blog/css-reset-layer/ */
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    /* Use a more-intuitive box-sizing model */
+    /* https://css-tricks.com/international-box-sizing-awareness-day/ */
+    box-sizing: border-box;
+
+    /* Remove default margin and padding */
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    /* Avoid text overflows */
+    /* https://www.joshwcomeau.com/css/custom-css-reset/#eight-avoid-text-overflows-9 */
+    overflow-wrap: break-word;
+
+    /* Don't use Times New Roman. Instead, use the default font stack from Tailwind */
+    font-family:
+      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    /* The default tab size of 8 is way too wide! */
+    /* https://css-tricks.com/almanac/properties/t/tab-size/ */
+    tab-size: 2;
+
+    /* Make quotes look a bit nicer */
+    /* https://chriscoyier.net/2023/11/27/the-hanging-punctuation-property-in-css/ */
+    hanging-punctuation: first allow-end last;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      /* Allow animating using keywords, such as 0 → auto */
+      /* https://www.joshwcomeau.com/css/custom-css-reset/#three-enable-keyword-animations-4 */
+      interpolate-size: allow-keywords;
+
+      /* Add smooth scrolling by default */
+      /* https://schepp.dev/posts/smooth-scrolling-and-page-search/ */
+      &:focus-within {
+        scroll-behavior: smooth;
+      }
+    }
+
+    /* Opt-in to multi-page view transitions */
+    /* https://css-tricks.com/snippets/css/basic-view-transition/ */
+    @view-transition {
+      navigation: auto;
+    }
+  }
+
+  html,
+  body,
+  #__next {
+    /* Allow percentage-based heights in the application */
+    height: "100%";
+  }
+
+  body {
+    /* Improve text rendering */
+    /* https://www.joshwcomeau.com/css/custom-css-reset/#five-improve-text-rendering-6 */
+    -webkit-font-smoothing: antialiased;
+
+    /* Add more sensible default line-height */
+    line-height: 1.5;
+  }
+
+  #__next {
+    /* Create a root stacking context */
+    /* https://www.joshwcomeau.com/css/custom-css-reset/#onezero-root-stacking-context-11 */
+    isolation: "isolate";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    /* Make every line roughly the same length */
+    /* https://developer.chrome.com/docs/css-ui/css-text-wrap-balance */
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    /* Avoid short last lines, poor hyphenation, and more */
+    /* https://webkit.org/blog/16547/better-typography-with-text-wrap-pretty/ */
+    text-wrap: pretty;
+  }
+
+  a {
+    /* Make links prettier */
+    /* https://frontendmasters.com/blog/chilled-out-text-underlines/ */
+    color: oklch(0.68 0.17 228);
+    text-underline-offset: 2px;
+    &:not(:is(:hover, :focus)) {
+      text-decoration-color: color-mix(in srgb, currentColor, transparent 50%);
+    }
+  }
+
+  sub,
+  sup {
+    /* Prevent `sub` and `sup` elements from affecting the line height */
+    /* https://github.com/necolas/normalize.css/blob/master/normalize.css#L120-L139 */
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  sub {
+    bottom: -0.25em;
+  }
+
+  sup {
+    top: -0.5em;
+  }
+
+  /* Make sure the list bullets and numbers aren't rendered outside of the box */
+  ul,
+  ol,
+  dl {
+    padding-left: 16px;
+
+    ul,
+    ol,
+    dl {
+      padding-left: 4ch;
+    }
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg,
+  iframe,
+  object {
+    /* Avoid line-height from causing mysterious 4x gaps */
+    /* https://www.joshwcomeau.com/css/custom-css-reset/#six-improve-media-defaults-7 */
+    display: block;
+
+    /* Prevent blowouts */
+    max-width: 100%;
+    height: auto;
+
+    /* Remove border */
+    border-style: none;
+  }
+
+  /* Set figcaption width based on figure */
+  /* https://frontendmasters.com/blog/the-figcaption-problem/ */
+  figure {
+    inline-size: fit-content;
+    margin-inline: auto;
+  }
+
+  figcaption {
+    contain: inline-size;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    /* Inherit fonts for form controls */
+    font: inherit;
+  }
+
+  label {
+    /* I very rarely use inline labels */
+    display: block;
+  }
+
+  input:not(
+    :where(
+      [type="submit"],
+      [type="checkbox"],
+      [type="radio"],
+      [type="button"],
+      [type="reset"]
+    )
+  ) {
+    /* Make form controls full width */
+    width: 100%;
+  }
+
+  textarea {
+    /* Make textarea grow automatically */
+    field-sizing: content;
+    min-height: 5lh;
+
+    /* Full width */
+    width: 100%;
+    max-width: 100%;
+  }
+
+  pre,
+  code,
+  kbd,
+  samp {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+  }
+
+  /* Automatically trigger 'not-allowed' cursor with disabled attributes */
+  [aria-disabled="true"],
+  [disabled] {
+    cursor: not-allowed;
+  }
+
+  /* Make hidden attribute actually hide things */
+  /* https://meowni.ca/hidden.is.a.lie.html */
+  [hidden] {
+    display: none !important;
+  }
+
+  /* Give #hash-links some headroom */
+  /* https://frontendmasters.com/blog/the-coyier-css-starter/#no-headbutting */
+  :target {
+    scroll-margin: 3rlh;
+  }
+
+  /* Sets up the bare minimum for WCAG compliant tables */
+  /* https://adrianroselli.com/2020/11/under-engineered-responsive-tables.html */
+  table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    td,
+    th {
+      word-break: normal;
+      border: 1px solid gray;
+      padding: 0.5rem;
+    }
+  }
+  [role="region"][aria-labelledby][tabindex] {
+    overflow: auto;
+  }
+
+  /* Add horizontal scrolling shadows to make it more obvious that the table is scrollable */
+  /* https://adrianroselli.com/2020/11/under-engineered-responsive-tables.html#Usability */
+  [role="region"][aria-labelledby][tabindex] {
+    background:
+      linear-gradient(to right, #fff 30%, rgba(255, 255, 255, 0)),
+      linear-gradient(to right, rgba(255, 255, 255, 0), #fff 70%) 0 100%,
+      radial-gradient(
+        farthest-side at 0% 50%,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0)
+      ),
+      radial-gradient(
+          farthest-side at 100% 50%,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0)
+        )
+        0 100%;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    background-size:
+      40px 100%,
+      40px 100%,
+      14px 100%,
+      14px 100%;
+    background-position:
+      0 0,
+      100%,
+      0 0,
+      100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+
+  /* Give the outline som space to breath */
+  :focus-visible {
+    outline-offset: 2px;
+  }
+
+  /* Utility class to make something only visible to screenreaders */
+  .screenreader-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+}
