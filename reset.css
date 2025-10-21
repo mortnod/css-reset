@@ -141,7 +141,7 @@
   svg,
   iframe,
   object {
-    /* Avoid line-height from causing mysterious 4x gaps */
+    /* Avoid mysterious hard to debug gaps caused by "display: inline" and "line-height" */
     /* https://www.joshwcomeau.com/css/custom-css-reset/#six-improve-media-defaults-7 */
     display: block;
 
@@ -169,6 +169,7 @@
   textarea,
   button {
     /* Inherit fonts for form controls */
+    /* https://www.joshwcomeau.com/css/custom-css-reset/#seven-inherit-fonts-for-form-controls-8 */
     font: inherit;
   }
 
